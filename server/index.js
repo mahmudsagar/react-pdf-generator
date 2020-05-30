@@ -12,4 +12,21 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
+//POST - PDF generatedd and fetching of the the data
+
+app.post('/create-pdf', (req,res)=> {
+    pdf.create(pdfTemplate(req.data),{}).toFile('resul.pdf', (err) =>{
+        if(err){
+            return Promise.reject()
+        }
+        return Promise.resolve()
+    })
+})
+
+//GET - Send the generated PDF to the Client
+
+app.get('/fetch-pdf', (req,res) =>{
+    res.sendFile(`${__dirname}/result.pdf`)
+})
+
 app.listen(posrt, () => console.log(`Lstening on port ${port}`))
