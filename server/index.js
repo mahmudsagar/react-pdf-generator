@@ -15,11 +15,11 @@ app.use(bodyParser.json())
 //POST - PDF generatedd and fetching of the the data
 
 app.post('/create-pdf', (req,res)=> {
-    pdf.create(pdfTemplate(req.data),{}).toFile('resul.pdf', (err) =>{
+    pdf.create(pdfTemplate(req.body),{}).toFile('result.pdf', (err) =>{
         if(err){
-            return Promise.reject()
+            res.send (Promise.reject())
         }
-        return Promise.resolve()
+        res.send (Promise.resolve())
     })
 })
 
@@ -29,4 +29,4 @@ app.get('/fetch-pdf', (req,res) =>{
     res.sendFile(`${__dirname}/result.pdf`)
 })
 
-app.listen(posrt, () => console.log(`Lstening on port ${port}`))
+app.listen(port, () => console.log(`Lstening on port ${port}`))
